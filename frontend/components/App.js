@@ -7,6 +7,7 @@ const URL = "http://localhost:9000/api/todos";
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [hideCompleted, setHideCompleted] = useState(false);
 
   useEffect(() => {
     axios.get(URL).then((res) => {
@@ -46,8 +47,12 @@ export default function App() {
       });
   };
 
-  const handleCompletedHide = () => {
-    setTodos(todos.filter((todo) => !todo.tamamlandi));
+  // const handleCompletedHide = () => {
+  //   setTodos(todos.filter((todo) => !todo.tamamlandi));
+  // };
+
+  const handleToggle = () => {
+    setHideCompleted(!hideCompleted);
   };
 
   //   const deleteCompleted = (id) => {
@@ -74,12 +79,18 @@ export default function App() {
 
   return (
     <div className="container">
-      <TodoList todos={todos} handleToggleCompleted={handleToggleCompleted} />
+      <TodoList
+        todos={
+          hideCompleted ? todos.filter((oge) => oge.tamamlandi !== true) : todos
+        }
+        handleToggleCompleted={handleToggleCompleted}
+      />
       <Form
         todos={todos}
         handleAddTodo={handleAddTodo}
-        handleCompletedHide={handleCompletedHide}
+        handleToggle={handleToggle}
         formSubmit={setTodos}
+        hideCompleted={hideCompleted}
       />
     </div>
   );

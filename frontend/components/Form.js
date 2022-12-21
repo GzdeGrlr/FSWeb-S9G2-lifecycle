@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 
 export default function Form(props) {
-  const {
-    formSubmit,
-    todos,
-    handleAddTodo,
-    handleCompletedHide,
-
-    // formDelete,
-    // handleToggleCompleted,
-  } = props;
+  const { formSubmit, todos, handleAddTodo, handleToggle, hideCompleted } =
+    props;
 
   const [newTodo, setNewTodo] = useState("");
 
@@ -37,7 +30,10 @@ export default function Form(props) {
         <br />
         <br />
       </form>
-      <button onClick={handleCompletedHide}> Hide Completed </button>{" "}
+      <button onClick={handleToggle}>
+        {" "}
+        {hideCompleted ? "Show" : "Hide"} Completed
+      </button>{" "}
       <span>
         {/* <button onClick={formDelete}>Delete Completed Ones</button> */}
       </span>
